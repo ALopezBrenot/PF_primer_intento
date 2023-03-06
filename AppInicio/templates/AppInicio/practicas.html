@@ -4,12 +4,18 @@
 
 {% block contenido %}
 
-<section class="features-icons bg-light text-center">
+<section class="features-icons bg-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1>Bienvenido a la página de prácticas realizadas!</h1> 
-                
+                <h1>Bienvenido a la página de prácticas realizadas! <br>Estas son las clases prácticas agendadas:</h1> 
+                <hr>
+                {% for p in practicas %}
+                    <li> {{p}} <button><a href="{% url 'eliminar-practica' p.id %}"> Eliminar </a></button> </li>
+                    
+                {% endfor %}
+                <hr>
+
                 <h2>Ingresa los datos para crear un nueva clase de práctica en el laboratorio:</h2>
                 
                 {% if formulario_practica.errors %}
