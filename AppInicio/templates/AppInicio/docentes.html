@@ -1,0 +1,34 @@
+{% extends 'AppInicio/padre.html' %}
+
+{% block title %} Docentes {% endblock %}
+
+{% block contenido %}
+
+<section class="features-icons bg-light text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>¡Bienvenido a la página de Docentes!</h1> 
+                
+                <h2>Ingrese aquí los datos para agregar un nuevo docente:</h2>
+                
+                {% if formulario_docente.errors %}
+                <p style="color: red;">Los datos son erroneos. Por favor revíselos. </p>
+                {% endif %}
+
+                <form action="{% url 'docentes' %}" method="POST">
+                    {% csrf_token %}
+
+                        <table>
+                            {{ formulario_docente.as_table }}
+                        </table>
+                        <input type="submit" value="Enviar">
+                </form>
+                
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

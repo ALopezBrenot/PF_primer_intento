@@ -1,0 +1,33 @@
+{% extends 'AppInicio/padre.html' %}
+
+{% block title %} Alumnos {% endblock %}
+
+{% block contenido %}
+
+<section class="features-icons bg-light text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Bienvenido a la página de alumnos!</h1> 
+                
+                <h2>Ingresa los datos para agregar un nuevo alumno:</h2>
+                
+                {% if formulario_alumno.errors %}
+                <p style="color: red;">Los datos son erroneos. Por favor revíselos. </p>
+                {% endif %}
+
+                <form action="{% url 'alumnos' %}" method="POST">
+                    {% csrf_token %}
+
+                        <table>
+                            {{ formulario_alumno.as_table }}
+                        </table>
+                        <input type="submit" value="Enviar">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
