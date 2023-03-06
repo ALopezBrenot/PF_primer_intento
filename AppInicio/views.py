@@ -10,6 +10,9 @@ def Inicio (request):
 
 
 def Docentes(request):
+
+    profesores = Docente.objects.all()
+
     if request.method == 'POST':
         mi_formulario = DocenteFormulario(request.POST)
 
@@ -26,9 +29,12 @@ def Docentes(request):
     else:
         mi_formulario = DocenteFormulario()
 
-    return render(request, 'AppInicio/docentes.html', {'formulario_docente': mi_formulario})
+    return render(request, 'AppInicio/docentes.html', {'formulario_docente': mi_formulario, 'profesores': profesores})
 
 def Alumnos(request):
+
+    alumnos = Alumno.objects.all()
+
     if request.method == 'POST':
         mi_formulario = AlumnoFormulario(request.POST)
 
@@ -45,7 +51,7 @@ def Alumnos(request):
     else:
         mi_formulario = AlumnoFormulario()
 
-    return render(request, 'AppInicio/alumnos.html', {'formulario_alumno': mi_formulario})
+    return render(request, 'AppInicio/alumnos.html', {'formulario_alumno': mi_formulario, 'alumnos': alumnos})
 
 
 def Practicas(request):
@@ -82,3 +88,8 @@ def buscar(request):
         respuesta = 'Debes ingresar una fecha para poder buscar.'
 
     return HttpResponse (respuesta)
+
+# Vistas para CRUD
+
+def eliminar_docente(request, nombre_docente):
+    pass
