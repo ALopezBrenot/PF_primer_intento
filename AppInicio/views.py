@@ -79,6 +79,6 @@ def buscar(request):
         return render(request, 'AppInicio/inicio.html', {'clase':resultado , 'fecha': mi_fecha})
     
     else:
-        respuesta = 'No se encontraron clases en esa fecha'
+        respuesta = 'Debes ingresar una fecha para poder buscar.'
 
     return HttpResponse (respuesta)
