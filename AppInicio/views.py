@@ -10,6 +10,9 @@ def Inicio (request):
 
 
 def Docentes(request):
+
+    profesores = Docente.objects.all()
+
     if request.method == 'POST':
         mi_formulario = DocenteFormulario(request.POST)
 
@@ -26,9 +29,12 @@ def Docentes(request):
     else:
         mi_formulario = DocenteFormulario()
 
-    return render(request, 'AppInicio/docentes.html', {'formulario_docente': mi_formulario})
+    return render(request, 'AppInicio/docentes.html', {'formulario_docente': mi_formulario, 'profesores': profesores})
 
 def Alumnos(request):
+
+    alumnos = Alumno.objects.all()
+
     if request.method == 'POST':
         mi_formulario = AlumnoFormulario(request.POST)
 
@@ -45,10 +51,13 @@ def Alumnos(request):
     else:
         mi_formulario = AlumnoFormulario()
 
-    return render(request, 'AppInicio/alumnos.html', {'formulario_alumno': mi_formulario})
+    return render(request, 'AppInicio/alumnos.html', {'formulario_alumno': mi_formulario, 'alumnos': alumnos})
 
 
 def Practicas(request):
+
+    practicas = Practica.objects.all()
+
     if request.method == 'POST':
         mi_formulario = PracticaFormulario(request.POST)
 
@@ -64,7 +73,7 @@ def Practicas(request):
     else:
         mi_formulario = PracticaFormulario()
 
-    return render(request, 'AppInicio/practicas.html', {'formulario_practica': mi_formulario})
+    return render(request, 'AppInicio/practicas.html', {'formulario_practica': mi_formulario, 'practicas': practicas})
 
 # Vistas para búsqueda de clases por fecha:
 
@@ -82,3 +91,32 @@ def buscar(request):
         respuesta = 'Debes ingresar una fecha para poder buscar.'
 
     return HttpResponse (respuesta)
+
+# Vistas para CRUD
+
+def eliminar_docente(request, docente_id):
+    profesor = Docente.objects.get(id = docente_id)
+    profesor.delete()
+    
+    profesores = Docente.objects.all()
+    mi_formulario = DocenteFormulario()
+    
+    return render(request,'AppInicio/docentes.html', {'profesores':profesores, 'formulario_docente': mi_formulario})
+
+def eliminar_practica(request, practica_id):
+    practica = Practica.objects.get(id = practica_id)
+    practica.delete()
+
+    practicas = Practica.objects.all()
+    mi_formulario = PracticaFormulario()
+
+    return render (request, 'AppInicio/practicas.html', {'practicas': practicas, 'formulario_practica': mi_formulario})
+
+def eliminar_alumno(request, alumno_id):
+    alumno = Alumno.objects.get(id = alumno_id)
+    alumno.delete()
+
+    alumnos = Alumno.objects.all()
+    mi_formulario = AlumnoFormulario()
+
+    return render(request, 'AppInicio/alumnos.html', {'alumnos': alumnos, 'formulario_alumno': mi_formulario})
