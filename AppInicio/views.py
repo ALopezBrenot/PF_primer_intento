@@ -111,3 +111,12 @@ def eliminar_practica(request, practica_id):
     mi_formulario = PracticaFormulario()
 
     return render (request, 'AppInicio/practicas.html', {'practicas': practicas, 'formulario_practica': mi_formulario})
+
+def eliminar_alumno(request, alumno_id):
+    alumno = Alumno.objects.get(id = alumno_id)
+    alumno.delete()
+
+    alumnos = Alumno.objects.all()
+    mi_formulario = AlumnoFormulario()
+
+    return render(request, 'AppInicio/alumnos.html', {'alumnos': alumnos, 'formulario_alumno': mi_formulario})

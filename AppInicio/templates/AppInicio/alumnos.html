@@ -12,7 +12,7 @@
                 
                 <hr>
                 {% for a in alumnos %}
-                    <li> {{a}} </li>
+                    <li> {{a}} <button><a href="{% url 'eliminar-alumno' a.id %}"> Eliminar </a></button> </li>
                 {% endfor %}
                 <hr>
                 
