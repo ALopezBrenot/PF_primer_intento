@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('AppInicio.urls')),
+    path('', include('AppPosts.urls')), #revisar si está bien que ambas apps tengan el mismo path
 ]
