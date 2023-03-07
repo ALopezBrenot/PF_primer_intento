@@ -1,0 +1,40 @@
+{% extends 'AppInicio/padre.html' %}
+
+{% block title %} Docentes {% endblock %}
+
+{% block contenido %}
+
+<section class="features-icons bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>¡Bienvenido a la página de Docentes! <br>Estos son los docentes activos del sitio:</h1> 
+                <hr>
+                {% for p in profesores %}
+                    <li> {{p}} <button><a href="{% url 'eliminar-profesor' p.id %}"> Eliminar </a></button> </li>
+                    
+                {% endfor %}
+                <hr>
+                
+                <h2>Ingrese aquí los datos para agregar un nuevo docente:</h2>
+                
+                {% if formulario_docente.errors %}
+                <p style="color: red;">Los datos son erroneos. Por favor revíselos. </p>
+                {% endif %}
+
+                <form action="{% url 'docentes' %}" method="POST">
+                    {% csrf_token %}
+
+                        <table>
+                            {{ formulario_docente.as_table }}
+                        </table>
+                        <input type="submit" value="Enviar">
+                </form>
+                
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
