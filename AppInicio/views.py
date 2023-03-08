@@ -93,7 +93,7 @@ def buscar(request):
     return HttpResponse (respuesta)
 
 # Vistas para CRUD
-
+# Delete
 def eliminar_docente(request, docente_id):
     profesor = Docente.objects.get(id = docente_id)
     profesor.delete()
@@ -120,3 +120,35 @@ def eliminar_alumno(request, alumno_id):
     mi_formulario = AlumnoFormulario()
 
     return render(request, 'AppInicio/alumnos.html', {'alumnos': alumnos, 'formulario_alumno': mi_formulario})
+
+# Vistas para Updtate
+
+def editar_docente(request, docente_id):
+    
+    docente = Docente.objects.get(id = docente_id)
+
+    if request.method == 'POST':
+        formulario = DocenteFormulario(request.POST)
+
+        if formulario.is_valid:
+            informacion = formulario.cleaned_data
+
+            docente.nombre = informacion['nombre']
+            docente.apellido = informacion['apellido']
+            docente.materia = informacion['materia']
+            docente.mail = informacion['mail']
+            docente.DNI = informacion['DNI']
+            docente.save()
+
+            profesores = Docente.objects.all()
+
+            return render(request, 'AppInicio/inicio.html')
+    else:
+        formulario = DocenteFormulario(initial={'nombre': docente.nombre,
+                                                'apellido': docente.apellido,
+                                                'materia': docente.materia,
+                                                'mail': docente.mail,
+                                                'DNI': docente.DNI})
+        profesores = Docente.objects.all()
+    
+    return render (request, 'AppInicio/editar-docente.html', {'formulario_docente': formulario, 'profesores': profesores})

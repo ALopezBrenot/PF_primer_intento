@@ -11,7 +11,9 @@
                 <h1>¡Bienvenido a la página de Docentes! <br>Estos son los docentes activos del sitio:</h1> 
                 <hr>
                 {% for p in profesores %}
-                    <li> {{p}} <button><a href="{% url 'eliminar-profesor' p.id %}"> Eliminar </a></button> </li>
+                    <li> {{p}} <button><a href="{% url 'eliminar-profesor' p.id %}"> Eliminar |  </a>
+                        <a href="{% url 'editar-profesor' p.id %}">Editar</a>
+                    </button> </li>
                     
                 {% endfor %}
                 <hr>
