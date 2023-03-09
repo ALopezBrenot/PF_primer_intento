@@ -12,7 +12,7 @@
                 <hr>
                 {% for p in profesores %}
                     <li> {{p}} <button><a href="{% url 'eliminar-profesor' p.id %}"> Eliminar |  </a>
-                        <a href="{% url 'editar-profesor' p.id %}">Editar</a>
+                        
                     </button> </li>
                     
                 {% endfor %}

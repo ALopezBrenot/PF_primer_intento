@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.generic.edit import UpdateView
 from AppInicio.forms import *
 from AppInicio.models import *
 
@@ -121,34 +122,9 @@ def eliminar_alumno(request, alumno_id):
 
     return render(request, 'AppInicio/alumnos.html', {'alumnos': alumnos, 'formulario_alumno': mi_formulario})
 
-# Vistas para Updtate
+# Vistas para Updtate (CVB)
 
-def editar_docente(request, docente_id):
-    
-    docente = Docente.objects.get(id = docente_id)
-
-    if request.method == 'POST':
-        formulario = DocenteFormulario(request.POST)
-
-        if formulario.is_valid:
-            informacion = formulario.cleaned_data
-
-            docente.nombre = informacion['nombre']
-            docente.apellido = informacion['apellido']
-            docente.materia = informacion['materia']
-            docente.mail = informacion['mail']
-            docente.DNI = informacion['DNI']
-            docente.save()
-
-            profesores = Docente.objects.all()
-
-            return render(request, 'AppInicio/inicio.html')
-    else:
-        formulario = DocenteFormulario(initial={'nombre': docente.nombre,
-                                                'apellido': docente.apellido,
-                                                'materia': docente.materia,
-                                                'mail': docente.mail,
-                                                'DNI': docente.DNI})
-        profesores = Docente.objects.all()
-    
-    return render (request, 'AppInicio/editar-docente.html', {'formulario_docente': formulario, 'profesores': profesores})
+class DocenteUpdate(UpdateView):
+    model = Docente
+    success_url = '/AppInicio/docente/list'
+    fields = ['nombre', 'apellido', 'materia', 'mail', 'DNI']
