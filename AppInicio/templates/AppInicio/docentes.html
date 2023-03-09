@@ -12,13 +12,13 @@
                 <hr>
                 {% for p in profesores %}
                     <li> {{p}} <button><a href="{% url 'eliminar-profesor' p.id %}"> Eliminar |  </a>
-                        <a href="{% url 'editar-profesor' p.id %}">Editar</a>
+                
                     </button> </li>
                     
                 {% endfor %}
                 <hr>
                 
-                <h2>Ingrese aquí los datos para agregar un nuevo docente:</h2>
+                <h2>Ingrese aquí los datos para crear un nuevo docente:</h2>
                 
                 {% if formulario_docente.errors %}
                 <p style="color: red;">Los datos son erroneos. Por favor revíselos. </p>
@@ -32,7 +32,6 @@
                         </table>
                         <input type="submit" value="Enviar">
                 </form>
-                
 
             </div>
         </div>
